@@ -12,29 +12,31 @@ module.exports.customMenu = function (callback, req) {
         json: {
             "button": [
                 {
-                    "type": "click",
-                    "name": "系统公告",
-                    "key": "notice"
+                    "type": "view",
+                    "name": "影吧",
+                    "url": "http://www.baidu.com/"
                 },
                 {
-                    "name": "菜单",
+                    "type": "view",
+                    "name": "影片",
+                    "url": "http://192.168.1.243:8081/maven/"
+                },
+                {
+                    "name": "我",
                     "sub_button": [
                         {
                             "type": "view",
-                            "name": "系统公告页",
-                            "url": "http://s15h440013.imwork.net/notice"
-                        },
-                        {
-                            "type": "view",
-                            "name": "视频",
+                            "name": "会员信息",
                             "url": "http://v.qq.com/"
                         },
                         {
-                            "type": "click",
-                            "name": "赞一下我们",
-                            "key": "praise"
-                        }]
-                }]
+                            "type": "view",
+                            "name": "绑定影厅",
+                            "url": "http://v.qq.com/"
+                        }
+                    ]
+                }
+            ]
         }
     }, function (err, response, body) {
         if(err){
