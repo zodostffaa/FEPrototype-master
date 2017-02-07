@@ -20,9 +20,13 @@ module.exports.reply = wechat(config.app, wechat.text(function (message, req, re
     }
 
     if (input == 'menu') {
-        menuController.customMenu(function () {
-            res.reply('已更新自定义菜单，如果没有看到变化，请等待5分钟，等待5分钟还无变化，说明你的菜单是最新的');
-        });
+        if (from === 'oSx2ps3VEXZVlbPVhtvOiNaW_gm0') {
+            menuController.customMenu(function () {
+                res.reply('已更新自定义菜单，如果没有看到变化，请等待5分钟，等待5分钟还无变化，说明你的菜单是最新的');
+            });
+        } else {
+            content = 'who are you?'
+        }
     }
 
     if (input === 'login') {
@@ -49,7 +53,7 @@ module.exports.reply = wechat(config.app, wechat.text(function (message, req, re
     if (input === 'hello') {
         var from = message.FromUserName;
         var content = '';
-        if (from === 'oqBpNv7uHbwRzQ-00vbAaU-ylvuo') {
+        if (from === 'oSx2ps3VEXZVlbPVhtvOiNaW_gm0') {
             content = 'hello master';
         } else {
             content = 'who are you?'
@@ -95,7 +99,10 @@ module.exports.reply = wechat(config.app, wechat.text(function (message, req, re
                 break;
             }
         }
+    } else if (message.Event === 'LOCATION') {
+        res.reply('');
     } else {
-        res.reply('暂未支持! Coming soon!');
+        //res.reply('暂未支持! Coming soon!');
+        res.reply('');
     }
 }));
