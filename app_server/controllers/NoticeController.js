@@ -14,8 +14,8 @@ var queryNotice = function (callback, req) {
 
 module.exports.renderNoticePage = function (req, res) {
     queryNotice(function (notices) {
-        res.render('index', {
-            title: '有数公告',
+        res.render('notice', {
+            title: '公告',
             notices: notices
         });
     }, req);

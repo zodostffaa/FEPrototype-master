@@ -14,7 +14,7 @@ module.exports.customMenu = function (callback, req) {
                 {
                     "type": "view",
                     "name": "影吧",
-                    "url": "http://www.baidu.com/"
+                    "url": "http://192.168.1.165/"
                 },
                 {
                     "type": "view",
