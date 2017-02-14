@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>关注K米 完美演唱</title>
+    <title>{{title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
@@ -104,7 +104,7 @@
                 menuList: ['menuItem:copyUrl']
             });
 
-            //分享给朋友
+           /* //分享给朋友
             wx.onMenuShareAppMessage({
                 title: wx_share.title,
                 desc: wx_share.desc,
@@ -211,7 +211,7 @@
                 fail: function (res) {
                     //alert(JSON.stringify(res));
                 }
-            });
+            });*/
 
             wx.error(function (res) {
                 // alert(res.errMsg);
@@ -350,7 +350,6 @@
 
     //处理绑定包厢码
     function bindBarcode(myurl,open_id,inputtype){
-        alert(myurl+'&open_id='+open_id);
         var networktype = now_network_type;
         mcancel();
         mloading();
@@ -361,7 +360,7 @@
         mcancel();
         new Toast({message:'绑定成功，正在进入...'}).show();
         setTimeout(function(){
-            window.location.href =  myurl+'&open_id='+open_id;
+            window.location.href =  myurl+'&openid='+open_id;
         },1000);
 
     }
