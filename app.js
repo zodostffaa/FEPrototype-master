@@ -7,8 +7,10 @@ var winston = require("./common/Logger/Logger").winston;
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//初始化AccessToken
 var accessTokenController = require('./app_server/controllers/AccessTokenController');
 accessTokenController.initAccessToken();
+
 
 var routes = require('./app_server/routes/index');
 

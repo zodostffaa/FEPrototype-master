@@ -24,4 +24,7 @@ router.get('/oauth', oauthController.getOauth);
 //
 router.get('/userinfo', oauthController.getUserInfo);
 
+//test jssdk scanbrcode
+router.get('/scan', oauthController.getUserInfo);
+
 module.exports = router;

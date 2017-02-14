@@ -16,7 +16,7 @@ module.exports.renderNoticePage = function (req, res) {
     queryNotice(function (notices) {
         res.render('notice', {
             title: '公告',
-            notices: notices
+            notices: '123'
         });
     }, req);
 };

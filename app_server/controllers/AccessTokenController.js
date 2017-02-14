@@ -4,6 +4,7 @@ var accessTokenDao = require('../dao/AccessTokenDao');
 var logger = require('../../common/Logger/Logger');
 var accessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + config.app.appid + '&secret=' + config.app.appsecret;
 var accessToken = '';
+var jsapiTicketController = require('./JsapiTicketController');
 
 module.exports.getAccessToken = function () {
     return accessToken;
@@ -37,6 +38,9 @@ var queryAccessTokenFromDatabase = function () {
             } else {
                 accessToken = data.rows[0].access_token;
                 console.log('\nAccessToken init from database: ' + accessToken + '\n\n');
+                //初始化JsapiTicket
+                jsapiTicketController.initJsapiTicket(accessToken);
+
                 var timeRemaining = data.rows[0].expires_in - Date.now();
                 setTimeout(function () {
                     queryAccessTokenFromWechat();
