@@ -1,25 +1,25 @@
 var config = require('../../config');
-var wechatAPI = require('wechat-api');
-var accessTokenController = require('./AccessTokenController');
+var jsapiTicketController = require('./JsapiTicketController');
+var sign = require('../../common/utils/sign.js');
 var logger = require('../../common/Logger/Logger');
 
+var queryConfig = function (callback, req) {
+    var url = req.protocol + '://' + req.host + req.originalUrl; //获取当前url
+    var ret = sign(jsapiTicketController.getJsapiTicket(), url);
+    console.log(ret);
+    callback(ret);
+};
 
-
-
-
-var api = new wechatAPI(config.app.appid, config.app.appsecret, function (callback) {
-    // 传入一个获取全局token的方法
-    var accessToken = accessTokenController.getAccessToken();
-    if (!accessToken) {return callback(err);}
-    callback(null, JSON.parse(accessToken));
-
-});
-
-module.exports.setConfig = function (callback, req) {
-    var param = {
-        debug: false,
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
-        url: 'http://www.xxx.com'
-    };
-    api.getJsConfig(param, callback);
+module.exports.setConfig = function (req, res) {
+    queryConfig(function (ret) {
+        res.render('scan', {
+            title: '请扫码绑定影厅',
+            sign_pkg: ret.jsapi_ticket,
+            appId: config.app.appid,
+            timestamp: ret.timestamp,
+            nonceStr: ret.nonceStr,
+            signature: ret.signature,
+            open_id: '11'
+        });
+    }, req);
 };

@@ -8,6 +8,9 @@ var oauthController = require('../controllers/OauthController');
 //验签用Controller
 var signatureController = require('../controllers/SignatureController');
 
+//scan Controller
+var scanController = require('../controllers/ScanController');
+
 router.post('/weixin/api/auth/ack', autoReplayController.reply);
 
 router.get('/notice', noticeController.renderNoticePage);
@@ -25,6 +28,6 @@ router.get('/oauth', oauthController.getOauth);
 router.get('/userinfo', oauthController.getUserInfo);
 
 //test jssdk scanbrcode
-router.get('/scan', oauthController.getUserInfo);
+router.get('/scan', scanController.setConfig);
 
 module.exports = router;

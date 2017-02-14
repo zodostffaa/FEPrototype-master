@@ -24,10 +24,6 @@
     <div class="bc_content">
         <img class="bc_btn" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/bc_btn1.png" alt="按钮" />
         <div class="bc_btn_bg"></div>
-        <div class="bc_txt">
-            <span>或手动输入绑定码</span>
-            <img class="bc_jt" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/bc_jt1.png" alt="箭头" />
-        </div>
     </div>
 </div>
 <input type="hidden" name="callback" value="/wap/app/?oauthid=otCz6vo2MM6QeUiAEQbQTbejsFqA" />
@@ -75,17 +71,18 @@
     });
 
     //wx分享
-    var sign_pkg = {{sign_pkg}};
+    var sign_pkg = '{{sign_pkg}}';
+    var  open_id = '{{open_id}}';
     var wx_share = undefined;
     var wechatConfigInit = false; //判断是否初始化成功
     if(sign_pkg != undefined){
         wechatConfigInit = true;
         wx.config({
             debug: false,
-            appId: sign_pkg.appId,
-            timestamp: sign_pkg.timestamp,
-            nonceStr: sign_pkg.nonceStr,
-            signature: sign_pkg.signature,
+            appId: '{{appId}}',
+            timestamp: '{{timestamp}}',
+            nonceStr: '{{nonceStr}}',
+            signature: '{{signature}}',
             jsApiList: [
                 'checkJsApi',
                 'onMenuShareTimeline',
@@ -255,8 +252,9 @@
                     if(res.errMsg == "scanQRCode:ok"){//成功
 
                         var myurl = parseURL(res.resultStr);
-                        if(myurl.params.barcode){
-                            bindBarcode(myurl.params.barcode,myurl.params.dev,0);
+
+                        if(myurl.params.roomid){
+                            bindBarcode(res.resultStr,open_id,0);
                         }else{
                             new Toast({message:'连接包厢失败[SQRE]'}).show();
                         }
@@ -318,94 +316,8 @@
     }
     touchZoomEvent();
 
-    //绑定弹框
-    $('.bc_txt').click(function(){
-        getNetWorkType();
-        mcancel();
-        $("#toastMessage").remove();
-        var html ='';
-        html += '<div class="pop_bind" onclick="">';
-        html += '	<div class="input_text">请输入二维码下方的绑定码</div>';
-        html += '	<div class="code_div">';
-        html += '		<input type="text" value="请输入绑定码" name="bindcode" placeholder="" />';
-        html += '	</div>';
-        html += '	<div class="bind_btn">连接包厢</div>';
-        html += '</div>';
-
-        EAlert(html);
-
-        //绑定码自动分组 20160312 iyanxx
-        $(".pop_bind input").unbind("keyup");
-        $(".pop_bind input").bind("keyup",function(event){
-            var _thisInput = $(this);
-            var value = _thisInput.val();
-            var value_code = value.replace(/\s/g,"");
-            var value_len = value_code.length;
-            var value_arr = value_code.split("");
-            var new_value = "";
-            $.each(value_arr, function(index, val) {
-                var four = index%4;
-                if(index > 0 && four == 0){
-                    new_value += " ";
-                }
-                new_value += val;
-            });
-            _thisInput.val(new_value);
-        });
-        $(".pop_bind input").unbind("input");
-        $(".pop_bind input").bind("input",function(event){
-            var _thisInput = $(this);
-            var value = _thisInput.val();
-            var value_code = value.replace(/\s/g,"");
-            var value_len = value_code.length;
-            var value_arr = value_code.split("");
-            var new_value = "";
-            $.each(value_arr, function(index, val) {
-                var four = index%4;
-                if(index > 0 && four == 0){
-                    new_value += " ";
-                }
-                new_value += val;
-            });
-            _thisInput.val(new_value);
-        });
-        //绑定码自动分组 end
-        //输入框操作 20160312 iyanxx
-        $(".pop_bind input").unbind("focus");
-        $(".pop_bind input").bind("focus",function(event){
-            var value = $(this).val();
-            $(this).css("color","#000000");
-            if(value == '请输入绑定码'){
-                $(this).val("");
-            }
-        });
-        $(".pop_bind input").unbind("blur");
-        $(".pop_bind input").bind("blur",function(event){
-            var value = $(this).val();
-            if(value == false){
-                $(this).css("color","#bfbfbf");
-                $(this).val("请输入绑定码");
-            }
-        });
-        //输入框操作 end
-        return;
-    });
     $("#pop_bg").live('click',function(){
         mcancel();
-    });
-
-    //绑定
-    $('.bind_btn').live('click',function(){
-
-        var barcode = $('input[name="bindcode"]').val();
-        barcode = barcode.replace(/\s/g,'');
-        if((barcode.length != 14 && barcode.length != 20 && barcode.length != 22) || isNaN(barcode)){
-
-            new Toast({message:'可能是你的绑定码输入有误哦'}).show();
-            return false;
-        }
-
-        bindBarcode(barcode,'input',1);
     });
 
     function parseURL(url) {
@@ -437,7 +349,8 @@
     }
 
     //处理绑定包厢码
-    function bindBarcode(barcode,dev,inputtype){
+    function bindBarcode(myurl,open_id,inputtype){
+        alert(myurl+'&open_id='+open_id);
         var networktype = now_network_type;
         mcancel();
         mloading();
@@ -445,35 +358,12 @@
         $("#loading").append('<div class="load_text" style="margin-top: 79%;padding:10px;">正在绑定...</div>');
         $("#loading").css("position","fixed");
 
-        $.ajax({
-            type : "post",
-            timeout:20000,
-            dataType : "json",
-            url : "/wap/app/ajaxValidCode/",
-            global : false,
-            data : {
-                'code' : barcode,
-                'inputtype' : inputtype,
-                'networktype' : networktype
-            },
-            success : function(data) {
+        mcancel();
+        new Toast({message:'绑定成功，正在进入...'}).show();
+        setTimeout(function(){
+            window.location.href =  myurl+'&open_id='+open_id;
+        },1000);
 
-                mcancel();
-                if(data.error == 0){
-                    new Toast({message:'绑定成功，正在进入...'}).show();
-                    setTimeout(function(){
-                        window.location.href =  $('input[name="callback"]').val();
-                    },1000);
-                }else{
-                    new Toast({message:data.message}).show();
-                }
-            },
-            error: function(response) {
-                //请求出错
-                mcancel();
-                console.log('ajax error ！');
-            }
-        });
     }
 
 </script>
@@ -528,14 +418,6 @@
         },false);
     }
 
-    //baidu统计
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?c50838245838ade2d680b14ce86d4c51";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
 
 </script>
 

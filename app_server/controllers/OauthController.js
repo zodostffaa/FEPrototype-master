@@ -31,12 +31,12 @@ var client = new OAuth(config.app.appid, config.app.appsecret, function (openid,
 
 //获取Openid和AccessToken
 module.exports.getOauth = function (req, res) {
+
     client.getAccessToken(req.query.code, function (err, result) {
-         var accessToken = result.data.access_token;
-         var openid = result.data.openid;
+        var accessToken = result.data.access_token;
+        var openid = result.data.openid;
 
-     });
-
+    });
 
 };
 
