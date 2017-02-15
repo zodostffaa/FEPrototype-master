@@ -23,8 +23,12 @@ var queryAccessTokenFromWechat = function () {
         accessToken = body.access_token;
         console.log('AccessToken更新: ' + accessToken);
         saveAccessToken(body);
+        //更新JsapiTicket
+        jsapiTicketController.queryJsapiTicketFromWechat(accessToken);
         setTimeout(function () {
             queryAccessTokenFromWechat();
+            //更新JsapiTicket
+            jsapiTicketController.queryJsapiTicketFromWechat(accessToken);
             //每次提前十分钟去请求
         }, (body.expires_in - 600) * 1000);
     })
@@ -38,10 +42,10 @@ var queryAccessTokenFromDatabase = function () {
             } else {
                 accessToken = data.rows[0].access_token;
                 console.log('\nAccessToken init from database: ' + accessToken + '\n\n');
+                var timeRemaining = data.rows[0].expires_in - Date.now();
                 //初始化JsapiTicket
                 jsapiTicketController.initJsapiTicket(accessToken);
 
-                var timeRemaining = data.rows[0].expires_in - Date.now();
                 setTimeout(function () {
                     queryAccessTokenFromWechat();
                     //每次提前十分钟去请求

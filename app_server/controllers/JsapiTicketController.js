@@ -71,4 +71,5 @@ var initJsapiTicket = function (accessToken) {
 };
 
 module.exports.initJsapiTicket = initJsapiTicket;
+module.exports.queryJsapiTicketFromWechat = queryJsapiTicketFromWechat;
 

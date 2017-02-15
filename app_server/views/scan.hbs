@@ -8,30 +8,29 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
-    <link rel="stylesheet" href="http://kmdg.cdn.ktvme.com/public/wap/app/css/bind.css?v=20160401" />
-    <link rel="stylesheet" href="http://kmdg.cdn.ktvme.com/public/wap/app/css/JAlertBox.css">
+    <link rel="stylesheet" href="css/bind.css?v=20160401" />
+    <link rel="stylesheet" href="css/JAlertBox.css">
 </head>
 
 <body onclick="">
 <div class="bc_bg">
-    <img class="bg100" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/page_bind_bg.png?v=20160414" alt="背景" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
-    <img class="areaimg" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/area.png" />
+    <img class="bg100" src="img/page_bind_bg.png?v=20160414" alt="背景" />
+    <img class="areaimg" src="img/area.png" />
+    <img class="areaimg" src="img/area.png" />
+    <img class="areaimg" src="img/area.png" />
+    <img class="areaimg" src="img/area.png" />
+    <img class="areaimg" src="img/area.png" />
+    <img class="areaimg" src="img/area.png" />
     <div class="bc_content">
-        <img class="bc_btn" src="http://kmdg.cdn.ktvme.com/public/wap/app/images/bc_btn1.png" alt="按钮" />
+        <img class="bc_btn" src="img/bc_btn1.png" alt="按钮" />
         <div class="bc_btn_bg"></div>
     </div>
 </div>
-<input type="hidden" name="callback" value="/wap/app/?oauthid=otCz6vo2MM6QeUiAEQbQTbejsFqA" />
 <div id="pop_bg" class="pop_bg" onclick=""></div>
-<script src="http://kmdg.cdn.ktvme.com/public/common/js/jquery.min.js"></script>
-<script src="http://kmdg.cdn.ktvme.com/public/wap/app/js/JAlertBox.js"></script>
-<script src="http://kmdg.cdn.ktvme.com/public/wap/app/js/toast.js?37"></script>
-<script src="http://kmdg.cdn.ktvme.com/public/wap/common/js/jweixin-1.0.0.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/JAlertBox.js"></script>
+<script src="js/toast.js?37"></script>
+<script src="js/jweixin-1.1.0.js"></script>
 <script>
 
     /*设置动画*/
@@ -254,7 +253,7 @@
                         var myurl = parseURL(res.resultStr);
 
                         if(myurl.params.roomid){
-                            bindBarcode(res.resultStr,open_id,0);
+                            bindBarcode(res.resultStr,open_id,myurl.params.roomid);
                         }else{
                             new Toast({message:'连接包厢失败[SQRE]'}).show();
                         }
@@ -266,7 +265,7 @@
                     //alert('已取消');
                     now_use_qrcode = false;
                     mcancel();
-                    new Toast({message:'您已取消扫描<br/>可以试试手动输入'}).show();
+                    new Toast({message:'您已取消扫描<br/>'}).show();
                 },
                 fail: function (res) {
                     //alert(JSON.stringify(res));
@@ -278,7 +277,7 @@
         }else{
             now_use_qrcode = false;
             mcancel();
-            new Toast({message:'初始化失败！<br/>暂时无法使用<br/>请手动输入'}).show();
+            new Toast({message:'初始化失败！<br/>暂时无法使用<br/>'}).show();
         }
     }
 
@@ -348,8 +347,8 @@
         };
     }
 
-    //处理绑定包厢码
-    function bindBarcode(myurl,open_id,inputtype){
+    //处理绑定
+    function bindBarcode(myurl,open_id,roomid){
         var networktype = now_network_type;
         mcancel();
         mloading();
@@ -357,67 +356,40 @@
         $("#loading").append('<div class="load_text" style="margin-top: 79%;padding:10px;">正在绑定...</div>');
         $("#loading").css("position","fixed");
 
-        mcancel();
-        new Toast({message:'绑定成功，正在进入...'}).show();
-        setTimeout(function(){
-            window.location.href =  myurl+'&openid='+open_id;
-        },1000);
+        $.ajax({
+            type : "post",
+            timeout:20000,
+            dataType : "json",
+            url : "/scanauth",
+            global : false,
+            data : {
+                'myurl' : encodeURI(myurl),
+                'open_id' : encodeURI(open_id),
+                'roomid' : encodeURI(roomid),
+                'networktype' : networktype
+            },
+            success : function(data) {
+                mcancel();
+                if(data.error == 0){
+                    new Toast({message:'绑定成功，正在进入...'}).show();
+                    setTimeout(function(){
+                        //window.location.href =  $('input[name="callback"]').val();
+                        window.location.href =  myurl+'&openid='+open_id;
+                    },1000);
+                }else{
+                    new Toast({message:data.message}).show();
+                }
+            },
+            error: function(response) {
+                //请求出错
+                mcancel();
+                console.log('ajax error ！');
+            }
+        });
 
     }
 
 </script>
 </body>
-<script type="text/javascript">
-    document.write(unescape("%3Cscript src='/public/common/js/ka.js?v=1110&2c08abecfe84f1e70f334dba14510414' type='text/javascript'%3E%3C/script%3E"));
-
-    //根据是否加载了jQuery，选择不同的方法执行上传
-    if (window.jQuery) {//如果jQuery存在，使用JQ的方法进行处理
-        $(".ka_pushEvent").live('click',function(){
-            var dataKa = $(this).attr('data-ka-event');
-            var jsonData = JSON.parse(dataKa);
-            ka._hmt.pushEvent(jsonData[0],jsonData[1]);//调用ka事件收集函数
-        });
-        //ka identify埋点统一处理
-        $(".ka_pushIdentify").live('click',function(){
-            var dataIden = $(this).attr('data-ka-iden');
-            var jsonData = JSON.parse(dataIden);
-            ka._hmt.pushIdentify(jsonData[0],jsonData[1]);
-        });
-    } else {//jQuery不存在
-        //原生点击事件监听
-        var addEventHandler = [,].length == 2 ? function(element,evtName, callback){
-                    element.attachEvent('on' + evtName, callback) ;
-                } : function(element,evtName, callback,useCapture){
-                    element.addEventListener(evtName, callback,useCapture);
-                };
-        addEventHandler(document,"click",function(event){
-            var evt = event || window.event;
-            var eventTarget = evt.target || evt.srcElement;
-            while (eventTarget.nodeName != 'BODY') {
-                var targetClass = eventTarget.className;
-                try{
-                    if(targetClass.indexOf('ka_pushEvent') >= 0){
-                        var eventValue = eventTarget.attributes["data-ka-event"].value;
-                        var jsonData = JSON.parse(eventValue);
-                        ka._hmt.pushEvent(jsonData[0],jsonData[1]);//调用ka事件收集函数
-                        return 0;
-                    }
-                    if (targetClass.indexOf('ka_pushIdentify') >= 0) {
-                        var eventValue = eventTarget.attributes["data-ka-iden"].value;
-                        var jsonData = JSON.parse(eventValue);
-                        ka._hmt.pushIdentify(jsonData[0],jsonData[1]);
-                        return 0;
-                    }
-                    else {
-                        eventTarget = eventTarget.parentNode;
-                    }
-                } catch(err){
-                }
-            }
-        },false);
-    }
-
-
-</script>
 
 </html>
