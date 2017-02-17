@@ -10,7 +10,7 @@ var MysqlLogger = winston.transports.MysqlLogger = function () {
             connectionLimit: 10,
             host: 'localhost',
             user: 'root',
-            password: 'root',
+            password: '123456',
             database: 'gdas',
             charset: 'utf8'
         };

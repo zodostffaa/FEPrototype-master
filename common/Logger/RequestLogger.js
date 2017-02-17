@@ -1,6 +1,7 @@
 var xml2js = require('xml2js')
     , requestData = require('./RequestData')
-    , Logger = {};
+    , Logger = {},
+    userIofo = require('../../app_server/controllers/UserInformationController');
 
 Logger.create = function (logger, format) {
 
