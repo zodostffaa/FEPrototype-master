@@ -4,6 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var favicon = require('serve-favicon');
 var winston = require("./common/Logger/Logger").winston;
+
+
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //初始化AccessToken
