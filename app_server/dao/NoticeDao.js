@@ -5,7 +5,7 @@ var logger = require('../../common/Logger/Logger');
 
 module.exports.getNoticeList = function (callBack) {
     var notices = [];
-    pool.getPoolConnection('gdas', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('get connection from pool failed in getNoticeList: ', err);
             return;

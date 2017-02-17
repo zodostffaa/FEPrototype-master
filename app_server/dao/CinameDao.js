@@ -7,7 +7,7 @@ var logger = require('../../common/Logger/Logger');
 
 module.exports = {
     getCinema :function (totalPage,callBack){
-        pool.getPoolConnection('gdas', function (err, connection) {
+        pool.getPoolConnection('mtsc', function (err, connection) {
 
             if (err) {
                 console.log('get connection from pool failed in getCiname: ', err);
@@ -34,7 +34,7 @@ module.exports = {
         });
     },
     findCountByPage : function(callBack){
-        pool.getPoolConnection('gdas', function (err, connection) {
+        pool.getPoolConnection('mtsc', function (err, connection) {
 
             if (err) {
                 console.log('get connection from pool failed in findCountByPage: ', err);

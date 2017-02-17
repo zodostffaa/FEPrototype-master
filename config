@@ -5,7 +5,7 @@ var config = {
     token: 'tuojin',
     encodingAESKey: '3F6IayF9bzPTY1QvMl5xKRvB5IYnShnzRJr82CaufcB'
   },
-  pools:{gdas:{
+  pools:{mtsc:{
     host: '192.168.1.203',
     user: 'bestv',
     password: 'bestv',

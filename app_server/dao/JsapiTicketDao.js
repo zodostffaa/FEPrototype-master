@@ -3,7 +3,7 @@ var pool = require('./DBConnectPool');
 var logger = require('../../common/Logger/Logger');
 
 module.exports.setJsapiTicket = function (data, callBack) {
-    pool.getPoolConnection('gdas', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('get connection from pool failed in setJsapiTicket: ', err);
             return;
@@ -33,7 +33,7 @@ module.exports.setJsapiTicket = function (data, callBack) {
 };
 
 module.exports.getJsapiTicket = function (callBack) {
-    pool.getPoolConnection('gdas', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('Error: get connection from pool in getJsapiTicket: ', err);
             return;

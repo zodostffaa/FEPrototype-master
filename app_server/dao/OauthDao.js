@@ -4,7 +4,7 @@ var logger = require('../../common/Logger/Logger');
 
 
 module.exports.getOauth = function (openid, callback) {
-    pool.getPoolConnection('gdas', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('get connection from pool failed in getOauth: ', err);
             return;
@@ -24,7 +24,7 @@ module.exports.getOauth = function (openid, callback) {
 };
 
 module.exports.setOauth = function (openid, token, callback) {
-    pool.getPoolConnection('gdas', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('get connection from pool failed in setOauth: ', err);
             return;

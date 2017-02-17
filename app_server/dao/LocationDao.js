@@ -6,7 +6,7 @@ var logger = require('../../common/Logger/Logger');
 
 
 module.exports.getLocation = function (callBack) {
-    pool.getPoolConnection('mtsc2', function (err, connection) {
+    pool.getPoolConnection('mtsc', function (err, connection) {
         if (err) {
             console.log('Error: get connection from pool in getCineamDetail: ', err);
             return;
