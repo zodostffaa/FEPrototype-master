@@ -18,7 +18,7 @@ module.exports = {
 
     /**
      * 影吧菜单--影吧信息查询->反馈前台组装
-     *      预定每次加载5条
+     *      预定每次加载10条
      * @param req
      * @param res
      * http -- post -- ajax
