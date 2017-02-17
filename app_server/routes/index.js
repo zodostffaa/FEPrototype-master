@@ -10,6 +10,8 @@ var signatureController = require('../controllers/SignatureController');
 
 //scan Controller
 var scanController = require('../controllers/ScanController');
+//
+var cinemaMenuController = require('../controllers/CinemaMenuController');
 
 //微信自动回复
 router.post('/weixin/api/auth/ack', autoReplayController.reply);
@@ -29,5 +31,7 @@ router.get('/userinfo', oauthController.getUserInfo);
 router.get('/scan', scanController.setConfig);
 //微信绑定影厅扫码页面，验证以及自动发送推送消息
 router.post('/scanauth', scanController.sendTextMsg);
+
+router.post('/cinema',cinemaMenuController.getCinemaInfoDemo);
 
 module.exports = router;
