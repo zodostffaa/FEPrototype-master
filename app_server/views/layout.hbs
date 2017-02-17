@@ -58,5 +58,171 @@
     <script type="text/javascript" src="js/jweixin-1.1.0.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
+    <script>
+      //wx
+      var sign_pkg = '{{sign_pkg}}';
+      var  open_id = '{{open_id}}';
+      var wx_share = undefined;
+      var wechatConfigInit = false; //判断是否初始化成功
+      if(sign_pkg != undefined){
+          wechatConfigInit = true;
+          wx.config({
+              debug: false,
+              appId: '{{appId}}',
+              timestamp: '{{timestamp}}',
+              nonceStr: '{{nonceStr}}',
+              signature: '{{signature}}',
+              jsApiList: [
+                  'checkJsApi',
+                  'onMenuShareTimeline',
+                  'onMenuShareAppMessage',
+                  'onMenuShareQQ',
+                  'onMenuShareWeibo',
+                  'onMenuShareQZone',
+                  'hideMenuItems',
+                  'getNetworkType',
+                  'scanQRCode',
+                  'openLocation',
+                  'getLocation'
+              ]
+          });
+          wx.ready(function () {
+              wechatConfigInit = true;
+              var host = window.location.host;
+
+              //隐藏菜单按钮
+              wx.hideMenuItems({
+                  menuList: ['menuItem:copyUrl']
+              });
+
+              /* //分享给朋友
+               wx.onMenuShareAppMessage({
+               title: wx_share.title,
+               desc: wx_share.desc,
+               link: 'http://' + host + wx_share.link,
+               imgUrl: 'http://' + host + wx_share.imgurl,
+               trigger: function (res) {
+               //alert('用户点击发送给朋友');
+               },
+               success: function (res) {
+               //alert('已分享');
+               },
+               cancel: function (res) {
+               //alert('已取消');
+               },
+               fail: function (res) {
+               //alert(JSON.stringify(res));
+               }
+               });
+
+               //分享到朋友圈
+               wx.onMenuShareTimeline({
+               title: wx_share.title,
+               desc: wx_share.desc,
+               link: 'http://' + host + wx_share.link,
+               imgUrl: 'http://' + host + wx_share.imgurl,
+               trigger: function (res) {
+               //alert('用户点击分享到朋友圈');
+               },
+               success: function (res) {
+               //alert('已分享');
+               },
+               cancel: function (res) {
+               //alert('已取消');
+               },
+               fail: function (res) {
+               //alert(JSON.stringify(res));
+               }
+               });
+
+               // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+               wx.onMenuShareQQ({
+               title: wx_share.title,
+               desc: wx_share.desc,
+               link: 'http://' + host + wx_share.link,
+               imgUrl: 'http://' + host + wx_share.imgurl,
+               trigger: function (res) {
+               //alert('用户点击分享到QQ');
+               },
+               complete: function (res) {
+               //alert(JSON.stringify(res));
+               },
+               success: function (res) {
+               // alert('已分享');
+               },
+               cancel: function (res) {
+               //alert('已取消');
+               },
+               fail: function (res) {
+               //alert(JSON.stringify(res));
+               }
+               });
+
+               // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+               wx.onMenuShareWeibo({
+               title: wx_share.title,
+               desc: wx_share.desc,
+               link: 'http://' + host + wx_share.link,
+               imgUrl: 'http://' + host + wx_share.imgurl,
+               trigger: function (res) {
+               // alert('用户点击分享到微博');
+               },
+               complete: function (res) {
+               // alert(JSON.stringify(res));
+               },
+               success: function (res) {
+               // alert('已分享');
+               },
+               cancel: function (res) {
+               //alert('已取消');
+               },
+               fail: function (res) {
+               //alert(JSON.stringify(res));
+               }
+               });
+
+               // 2.5 监听“分享到QZone”按钮点击、自定义分享内容及分享接口
+               wx.onMenuShareQZone({
+               title: wx_share.title,
+               desc: wx_share.desc,
+               link: 'http://' + host + wx_share.link,
+               imgUrl: 'http://' + host + wx_share.imgurl,
+               trigger: function (res) {
+               //alert('用户点击分享到QZone');
+               },
+               complete: function (res) {
+               //alert(JSON.stringify(res));
+               },
+               success: function (res) {
+               //alert('已分享');
+               },
+               cancel: function (res) {
+               //alert('已取消');
+               },
+               fail: function (res) {
+               //alert(JSON.stringify(res));
+               }
+               });*/
+
+              function openmap(latitude,longitude,name,address) {
+                  wx.openLocation({
+                      latitude: latitude,
+                      longitude: longitude,
+                      name: name,
+                      address: address,
+                      scale: 14,
+                      infoUrl: 'http://weixin.qq.com'
+                  })
+              }
+
+              wx.error(function (res) {
+                  // alert(res.errMsg);
+                  wechatConfigInit = false;
+              });
+
+          });
+      }
+
+    </script>
   </body>
 </html>

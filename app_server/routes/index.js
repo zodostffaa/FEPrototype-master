@@ -23,9 +23,6 @@ router.post('/weixin/api/auth/ack', autoReplayController.reply);
 //验证消息的确来自微信服务器
 router.get('/weixin/api/auth/ack', signatureController.signatureWeixin);
 
-
-router.get('/notice', noticeController.renderNoticePage);
-
 //测试oauth base
 router.get('/oauth', oauthController.getOauth);
 
@@ -36,9 +33,9 @@ router.get('/userinfo', oauthController.getUserInfo);
 router.get('/scan', scanController.setConfig);
 //微信绑定影厅扫码页面，验证以及自动发送推送消息
 router.post('/scanauth', scanController.sendTextMsg);
-
+//微信公众号打开影吧
 router.get('/cinema',cinemaMenuController.getCinemaInfo);
-router.post('/cinema',cinemaMenuController.getCinemaInfoDemo);
+router.post('/cinemainfo',cinemaMenuController.getCinemaInfoDemo);
 
 router.get('/cinemadetail',cinemaDetailController.getCinemaDetail);
 
