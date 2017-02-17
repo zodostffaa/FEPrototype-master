@@ -1,33 +1,21 @@
 var config = {
   app: {
-    debug : true, //开启调试模式，所有API的返回值会在客户端alert出来
-    appid : 'wx330cf188604056d4',
-    appsecret : '0cdba26b3d58c92d3196891e40123bf3',
-    token : 'tuojin',
-    encodingAESKey : '3F6IayF9bzPTY1QvMl5xKRvB5IYnShnzRJr82CaufcB'
+    appid: 'wxaf378ab4ba9fb3da',
+    appsecret: '4baf5b3a80a9fe80f6f7d0618c226c22',
+    token: 'tuojin',
+    encodingAESKey: '3F6IayF9bzPTY1QvMl5xKRvB5IYnShnzRJr82CaufcB'
   },
-  pools:{
-       gdas:{
-        host: 'localhost',
-        user: 'root',
-        password: '123456',
-        port: '3306',
-        database: 'gdas',
-        //    debug:true,
-        charset: 'utf8',
-        //   stringifyObjects:true,
-        typeCast: 'false'
-      },
-      mtsc2:{
-          host:'localhost',
-          user:'root',
-          password:'123456',
-          port:'3306',
-          database:'mtsc2',
-          charset:'utf8',
-          typeCast:'false'
-      }
-  }
+  pools:{gdas:{
+    host: '192.168.1.203',
+    user: 'bestv',
+    password: 'bestv',
+    port: '3306',
+    database: 'mtsc2',
+    //    debug:true,
+    charset: 'utf8',
+    //   stringifyObjects:true,
+    typeCast: 'false'
+  }}
   // 其他配置项...
 };
 module.exports = config;
