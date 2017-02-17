@@ -1,4 +1,5 @@
 var express = require('express');
+var hbs = require('hbs');
 var fs = require('fs');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,7 +12,6 @@ var bodyParser = require('body-parser');
 var accessTokenController = require('./app_server/controllers/AccessTokenController');
 accessTokenController.initAccessToken();
 
-
 var routes = require('./app_server/routes/index');
 
 var app = express();
@@ -22,6 +22,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
+
+hbs.registerPartials(__dirname + '/views/partial');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

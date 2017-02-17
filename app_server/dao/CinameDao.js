@@ -14,9 +14,9 @@ module.exports = {
                 return;
             }
 
-            var sql = 'SELECT ac.* from app_cinema as ac ORDER BY ac.cinema_id LIMIT ?,5';
+            var sql = 'SELECT ac.* from app_cinema as ac ORDER BY ac.cinema_id LIMIT ?,10';
 
-            connection.query(sql, [totalPage*5],function (queryErr, rows) {
+            connection.query(sql, [totalPage*10],function (queryErr, rows) {
                 if (queryErr) {
                     console.log('select * from app_cinema failed: ', err);
                     callBack({

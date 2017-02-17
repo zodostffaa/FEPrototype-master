@@ -1,0 +1,105 @@
+.list-block {
+    margin-top:0px;
+}
+.radius img{
+    border-radius: 5px;
+}
+
+.list-block ul{
+    background: none;
+}
+.cinema-group ul li{
+    margin-bottom: 10px;
+    background: white;
+    border: none;
+}
+.list-block .item-inner{
+    position:static;
+}
+.list-group .list-title{
+    background:gray;
+    margin-top: -1px;
+    padding: 4px 15px;
+    white-space: nowrap;
+    position: relative;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: black;
+    z-index: 15;
+}
+.cinemadetail {
+    margin: 0px;
+}
+.cinemadetail .item-title{
+    margin-top: 10px;
+}
+.cinemadetail .item-content{
+    background: white;
+    margin-top: 5px;
+}
+.cinemadetail .list-block{
+    margin-bottom: 0px;
+}
+.cinemadetail .item-text{
+    margin-top: 20px;
+ }
+.cinemadetail .split{
+    padding: 0px 0px 0px 15px;
+    border-left:solid 3px #efeff4;
+}
+.content-block-inner h2{
+    text-align: center;
+}
+.searchmoviebutton{
+    border: none;
+    background: darkorange;
+    color: white;
+    font-size: medium;
+}
+.filter{
+    border: none;
+    background: none;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+    font-size: small;
+    text-align: left;
+    overflow:visible;
+
+}
+.filter-title{
+    color: white;
+    text-align:left;
+    font-size: medium;
+}
+.footer{
+    position: absolute;
+    bottom: 0px;
+    width:100%;
+    margin:0px;
+}
+
+.kind{
+    border: solid 1px;
+    border-radius: 3px;
+    font-size: small;
+    padding: 3px;
+    margin: 3px;
+}
+
+.kinddiv{
+    margin: 1px;
+}
+
+
+.channel-title{
+    color: black;
+    font-size: medium;
+}
+.channel{
+   padding: 5px;
+    margin: 5px;
+    color: black;
+
+}

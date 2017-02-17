@@ -14,12 +14,12 @@ module.exports.customMenu = function (callback, req) {
                 {
                     "type": "view",
                     "name": "影吧",
-                    "url": "http://192.168.1.165/"
+                    "url": "http://runnoob.imwork.net/cinema"
                 },
                 {
                     "type": "view",
                     "name": "影片",
-                    "url": "http://192.168.1.243:8081/maven/"
+                    "url": "http://demo.open.weixin.qq.com/jssdk"
                 },
                 {
                     "name": "我",
@@ -39,7 +39,7 @@ module.exports.customMenu = function (callback, req) {
             ]
         }
     }, function (err, response, body) {
-        if(err){
+        if (err) {
             console.log('customMenu 请求失败');
             return;
         }
