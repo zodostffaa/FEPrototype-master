@@ -6,11 +6,11 @@ var config = {
     encodingAESKey: '3F6IayF9bzPTY1QvMl5xKRvB5IYnShnzRJr82CaufcB'
   },
   pools:{gdas:{
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
+    host: '192.168.1.203',
+    user: 'bestv',
+    password: 'bestv',
     port: '3306',
-    database: 'gdas',
+    database: 'mtsc2',
     //    debug:true,
     charset: 'utf8',
     //   stringifyObjects:true,
